@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welkom op Mijn Website</title>
+</head>
+<body>
+    <header>
+        <h1>Welkom op Mijn Website</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Steam Gebruikersinformatie</h2>
+            {% if player %}
+                <p><strong>Naam:</strong> {{ player.personaname }}</p>
+                <p><strong>Profiel:</strong> <a href="{{ player.profileurl }}" target="_blank">Bekijk profiel</a></p>
+                <p><strong>Land:</strong> {{ player.loccountrycode }}</p>
+                <p><strong>Laatst online:</strong> {{ player.lastlogoff | datetimefilter }}</p>
+                <img src="{{ player.avatarfull }}" alt="Profiel Afbeelding">
+
+                <h3>Statistieken</h3>
+                <p><strong>Totaal aantal games:</strong> {{ total_games }}</p>
+                
+                <h3>Recent Gespeelde Games</h3>
+                <ul>
+                    {% for game in recent_games %}
+                        <li>{{ game.name }} - {{ (game.playtime_forever / 60) | round(2) }} uur gespeeld</li>
+                    {% else %}
+                        <li>Geen recent gespeelde games gevonden.</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Geen gegevens gevonden voor deze gebruiker.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mijn Website</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
